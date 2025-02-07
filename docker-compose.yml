@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.10'
 
 services:
   fastapi:
@@ -9,13 +9,14 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql+asyncpg://user:password@localhost:5432/postgres
-    volume:
+      - DATABASE_URL=postgresql+asyncpg://user:password@db:5432/postgres
+      - GRAPHQL_ENABLE=true
+    volumes:
       - .:/app
 
   db:
     image: postgres:latest
-    container_name: postgres_db
+    container_name: postgres-database
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -24,7 +25,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postfres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data  # Corrected the typo
 
   pgAdmin:
     image: dpage/pgadmin4
@@ -39,4 +40,4 @@ services:
       - db
 
 volumes:
-  postgres_data
+  postgres_data: {}  # Defined correctly
