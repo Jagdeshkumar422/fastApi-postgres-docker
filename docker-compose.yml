@@ -9,7 +9,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=postgresql+asyncpg://user:password@db:5432/postgres
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/postgres
       - GRAPHQL_ENABLE=true
     volumes:
       - .:/app
@@ -20,7 +20,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     ports:
       - "5432:5432"
